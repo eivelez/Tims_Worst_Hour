@@ -183,6 +183,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -329,6 +330,10 @@ MonoBehaviour:
   isGrounded: 0
   canFly: 0
   shields: 2
+  isDamaged: 0
+  damageEffectCounter: 0
+  loseScreen: {fileID: 1696379867069575599, guid: 5766451f55e2500468e14e2825ff1160,
+    type: 3}
   iniPosition: {x: 0, y: 0}
   cantDie: 0
 --- !u!70 &224830588

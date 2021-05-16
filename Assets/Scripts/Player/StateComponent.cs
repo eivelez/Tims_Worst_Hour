@@ -9,6 +9,11 @@ public class StateComponent : MonoBehaviour
     public bool isGrounded = false;
     public bool canFly = false;
     public int shields = 0;
+    public bool isDamaged = false;
+    public int damageEffectCounter = 0;
+    public GameObject loseScreen;
+    private int screenCounter=0;
+    private bool isDead = false;
 
     int orbs;
     int keys;
@@ -27,6 +32,31 @@ public class StateComponent : MonoBehaviour
         orbCounter = GameObject.Find("OrbCounter");
         keyCounter = GameObject.Find("KeyCounter");
         AddShield();
+    }
+
+    void Update()
+    {
+        if(isDamaged)
+        {
+            ColorDamageEffect(true);
+            damageEffectCounter++;
+        }
+        if(damageEffectCounter>=100)
+        {
+            ColorDamageEffect(false);
+            isDamaged = false;
+            damageEffectCounter = 0;
+        }
+        if(isDead==true)
+        {
+            screenCounter++;
+            if(screenCounter>=500)
+            {
+                isDead = false;
+                ResetLevel();
+                screenCounter = 0;
+            }
+        }
     }
 
     public void AddOrb()
@@ -65,6 +95,7 @@ public class StateComponent : MonoBehaviour
         else {
             shields -= damage;
             shieldCounter.GetComponent<Text>().text = "X " + shields;
+            isDamaged = true;
         }
     }
     public void Die() {
@@ -75,14 +106,40 @@ public class StateComponent : MonoBehaviour
         }
         else
         {
-            FreezeWorldComponent.instance.ResetWorld();
-            EraChangeWorldComponent.instance.ResetWorld();
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            ShowLoseScreen();
         }
+    }
+
+    public void ColorDamageEffect(bool isActivated)
+    {
+        if(isActivated)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+        }
+        
     }
 
     public int GetKeys() {
         return keys;
+    }
+
+    public void ShowLoseScreen()
+    {
+        //transform.Find("Music").GetComponent<AudioSource>().Stop();
+        Instantiate(loseScreen, Camera.main.transform);
+        isDead = true;
+        
+    }
+
+    public void ResetLevel()
+    {
+        FreezeWorldComponent.instance.ResetWorld();
+        EraChangeWorldComponent.instance.ResetWorld();
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
