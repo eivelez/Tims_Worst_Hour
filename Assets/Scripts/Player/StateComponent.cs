@@ -26,8 +26,16 @@ public class StateComponent : MonoBehaviour
 
     public bool cantDie = false;
 
+    public GameObject damageSound;
+    static AudioSource damageSoundSource;
+
+
     void Start()
     {
+        if(damageSoundSource==null)
+        {
+            damageSoundSource = Instantiate(damageSound).GetComponent<AudioSource>();
+        }
         shieldCounter = GameObject.Find("ShieldCounter");
         orbCounter = GameObject.Find("OrbCounter");
         keyCounter = GameObject.Find("KeyCounter");
@@ -89,6 +97,7 @@ public class StateComponent : MonoBehaviour
     }
 
     public void RecieveDamage(int damage) {
+        damageSoundSource.Play();
         if (shields < damage) {
             Die();
         }

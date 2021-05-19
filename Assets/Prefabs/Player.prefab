@@ -336,6 +336,8 @@ MonoBehaviour:
     type: 3}
   iniPosition: {x: 0, y: 0}
   cantDie: 0
+  damageSound: {fileID: 7985106528245744263, guid: b0abf1a59fb35634baf5f8a14498c2b8,
+    type: 3}
 --- !u!70 &224830588
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
