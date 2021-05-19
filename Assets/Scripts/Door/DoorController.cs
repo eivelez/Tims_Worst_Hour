@@ -16,8 +16,15 @@ public class DoorController : MonoBehaviour
     GameObject otherDoor;
     StateComponent stateComponent;
 
+    public GameObject doorSound;
+    static AudioSource doorSoundSource;
+
     void Start()
     {
+        if (doorSoundSource == null)
+        {
+            doorSoundSource = Instantiate(doorSound).GetComponent<AudioSource>();
+        }
         player = GameObject.Find("Player");
         stateComponent = player.GetComponent<StateComponent>();
 
@@ -37,6 +44,7 @@ public class DoorController : MonoBehaviour
             {
                 if (stateComponent.GetKeys() > 0)
                 {
+                    doorSoundSource.Play();
                     stateComponent.RemoveKey();
                     locked = !locked;
                     player.transform.position = otherDoor.transform.position + new Vector3(0, 1);
@@ -45,6 +53,7 @@ public class DoorController : MonoBehaviour
             }
             else
             {
+                doorSoundSource.Play();
                 player.transform.position = otherDoor.transform.position + new Vector3(0, 1);
                 stateComponent.iniPosition = player.transform.position;
             }

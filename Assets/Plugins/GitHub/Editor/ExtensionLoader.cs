@@ -39,12 +39,12 @@ namespace GitHub.Unity
             {
                 return;
             }
-            EditorApplication.update += Initialize;
+            //EditorApplication.update += Initialize;
         }
 
         private static void Initialize()
         {
-            EditorApplication.update -= Initialize;
+            //EditorApplication.update -= Initialize;
 
             // we're always doing this right now because if the plugin gets updated all the meta files will be disabled and we need to re-enable them
             // we should probably detect if our assets change and re-run this instead of doing it every time
