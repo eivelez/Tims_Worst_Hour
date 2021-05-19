@@ -138,14 +138,14 @@ public class StateComponent : MonoBehaviour
 
     public void ShowLoseScreen()
     {
-        //transform.Find("Music").GetComponent<AudioSource>().Stop();
+        AudioListener.volume = 0f;
         Instantiate(loseScreen, Camera.main.transform);
         isDead = true;
-        
     }
 
     public void ResetLevel()
     {
+        AudioListener.volume = 1f;
         FreezeWorldComponent.instance.ResetWorld();
         EraChangeWorldComponent.instance.ResetWorld();
         Scene scene = SceneManager.GetActiveScene();
